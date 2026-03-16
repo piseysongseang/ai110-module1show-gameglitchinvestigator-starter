@@ -27,6 +27,21 @@ low, high = get_range_for_difficulty(difficulty)
 st.sidebar.caption(f"Range: {low} to {high}")
 st.sidebar.caption(f"Attempts allowed: {attempt_limit}")
 
+# Persist the difficulty and reset the game when the user changes it.
+if "difficulty" not in st.session_state:
+    st.session_state.difficulty = difficulty
+
+if st.session_state.difficulty != difficulty:
+    st.session_state.difficulty = difficulty
+    st.session_state.attempts = 0
+    st.session_state.score = 0
+    st.session_state.status = "playing"
+    st.session_state.history = []
+    st.session_state.current_message = None
+    st.session_state.message_type = None
+    st.session_state.secret = random.randint(low, high)
+
+# Ensure a secret is present on first load (or after a reload where session state is cleared).
 if "secret" not in st.session_state:
     st.session_state.secret = random.randint(low, high)
 
@@ -74,7 +89,7 @@ with col2:
     new_game = st.button("New Game 🔁")
 with col3:
     show_hint = st.checkbox("Show hint", value=True)
-
+# fix: the "New Game" button was not resetting the game state properly, now it resets all relevant session state variables and starts a new game when clicked.
 if new_game:
     st.session_state.attempts = 0
     st.session_state.secret = random.randint(low, high)
