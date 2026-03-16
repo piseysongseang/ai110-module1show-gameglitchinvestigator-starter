@@ -34,4 +34,3 @@ It wrote the code, ran away, and now the game is unplayable.
 ![Screenshot of Fixed 1](images/fix1.png)
 ![Screenshot of Fixed 2](images/fix2.png)
 ![Screenshot of Game](images/game.png)
-![Screenshot of Fixed Winning Game](images/screenshot.png)
