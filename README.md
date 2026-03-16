@@ -3,7 +3,7 @@
 ## 🚨 The Situation
 
 You asked an AI to build a simple "Number Guessing Game" using Streamlit.
-It wrote the code, ran away, and now the game is unplayable. 
+It wrote the code, ran away, and now the game is unplayable.
 
 - You can't win.
 - The hints lie to you.
@@ -25,14 +25,8 @@ It wrote the code, ran away, and now the game is unplayable.
 
 ## 📝 Document Your Experience
 
-- [ ] Describe the game's purpose.
-- [ ] Detail which bugs you found.
-- [ ] Explain what fixes you applied.
+- [ ] The game's purpose is to find the bugs that make the game unplayable.
+- [ ] I found some bugs in game hint logic (when the user put in lower number than secret number, the hint tells them to go lower and vice versa) and the "new game" button didn't work (when the user click on the new game button to start new game, it didn't work.)
+- [ ] I asked copilot to fix the code for me about the hint backward and new game button. I changed the code in function check_guess in a logic_utils.py file to correct the hint backward issues and
 
 ## 📸 Demo
-
-- [ ] [Insert a screenshot of your fixed, winning game here]
-
-## 🚀 Stretch Features
-
-- [ ] [If you choose to complete Challenge 4, insert a screenshot of your Enhanced Game UI here]
