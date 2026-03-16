@@ -11,10 +11,6 @@ Answer each question in 3 to 5 sentences. Be specific and honest about what actu
   - The hints were backwards: when I go low, it told me to go lower and vice versa.
   - The new game button doesn't work.
   - The attempt left count doesn't match the attempt that describe under the settings difficulty level. And when I finish my first attempt, it doesn't change until the next attempt.
-  - Enter to apply/submit answer doesn't work.
-  - When choosing other level of difficult(Hard and Easy), after two attempts of guessing, it gliches back to Normal level.
-  - The score doesn't add up right.
-  - When choosing other level of difficulty, the text under changes but doesn't match up with the instruction over the guessing box which confuses the players.
 
 ---
 
@@ -25,6 +21,7 @@ Answer each question in 3 to 5 sentences. Be specific and honest about what actu
 - Give one example of an AI suggestion that was correct (including what the AI suggested and how you verified the result).
   - I asked AI what's wrong with the game logic. And it gave me several issues that I've found.
 - Give one example of an AI suggestion that was incorrect or misleading (including what the AI suggested and how you verified the result).
+  - It gave me the code to change the backward hint but it results in more complex hint that sometimes it said go lower when the user put the number that is lower than the secret number which is confusing.
 
 ---
 
