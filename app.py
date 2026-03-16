@@ -92,6 +92,9 @@ if st.session_state.status != "playing":
         st.error("Game over. Start a new game to try again.")
     st.stop()
 
+if show_hint and st.session_state.current_message:
+    st.warning(st.session_state.current_message)
+
 if submit:
     st.session_state.attempts += 1
 
@@ -110,9 +113,9 @@ if submit:
 
         outcome, message = check_guess(guess_int, secret)
 
-        if show_hint:
-            st.session_state.current_message = message
-            st.session_state.message_type = "warning"
+        # Store the hint message in session state so it can persist after rerun.
+        st.session_state.current_message = message
+        st.session_state.message_type = "warning"
 
         st.session_state.score = update_score(
             current_score=st.session_state.score,
@@ -121,32 +124,22 @@ if submit:
         )
 
         if outcome == "Win":
+            st.balloons()
             st.session_state.status = "won"
-            st.session_state.current_message = (
+            st.success(
                 f"You won! The secret was {st.session_state.secret}. "
                 f"Final score: {st.session_state.score}"
             )
-            st.session_state.message_type = "success"
         else:
             if st.session_state.attempts >= attempt_limit:
                 st.session_state.status = "lost"
-                st.session_state.current_message = (
+                st.error(
                     f"Out of attempts! "
                     f"The secret was {st.session_state.secret}. "
                     f"Score: {st.session_state.score}"
                 )
-                st.session_state.message_type = "error"
 
     st.rerun()
-
-if st.session_state.current_message and st.session_state.message_type:
-    if st.session_state.message_type == "warning":
-        st.warning(st.session_state.current_message)
-    elif st.session_state.message_type == "success":
-        st.success(st.session_state.current_message)
-        st.balloons()
-    elif st.session_state.message_type == "error":
-        st.error(st.session_state.current_message)
 
 st.divider()
 st.caption("Built by an AI that claims this code is production-ready.")
