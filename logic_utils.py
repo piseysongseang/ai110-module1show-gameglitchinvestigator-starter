@@ -31,28 +31,47 @@ def parse_guess(raw: str):
 
     return True, value, None
 
-
 def check_guess(guess, secret):
-    """
-    Compare guess to secret and return (outcome, message).
+    """Compare guess to secret and return (outcome, message).
 
-    outcome examples: "Win", "Too High", "Too Low"
+    The outcome can be one of: "Win", "Too High", "Too Low".
+
+    This function is resilient to comparisons between strings and numbers
+    by attempting to coerce inputs to integers when possible. If coercion
+    fails for either value, it falls back to lexicographic string comparison.
     """
-    if guess == secret:
+
+    # Normalize both values for consistent comparisons.
+    def _to_int(value):
+        if isinstance(value, int):
+            return value
+        if isinstance(value, float):
+            return int(value)
+        if isinstance(value, str):
+            try:
+                return int(value)
+            except ValueError:
+                try:
+                    return int(float(value))
+                except ValueError:
+                    return None
+        return None
+
+    guess_int = _to_int(guess)
+    secret_int = _to_int(secret)
+
+    if guess_int is not None and secret_int is not None:
+        guess_val, secret_val = guess_int, secret_int
+    else:
+        guess_val, secret_val = str(guess), str(secret)
+
+    if guess_val == secret_val:
         return "Win", "🎉 Correct!"
+# Fix: logic of the hint messages was reversed before, now "Too High" gives a hint to go lower and "Too Low" gives a hint to go higher.
+    if guess_val > secret_val:
+        return "Too High" , "📉 Go LOWER!"
 
-    try:
-        if guess > secret:
-            return "Too High", "📉 Go LOWER!"
-        else:
-            return "Too Low", "📈 Go HIGHER!"
-    except TypeError:
-        g = str(guess)
-        if g == secret:
-            return "Win", "🎉 Correct!"
-        if g > secret:
-            return "Too High", "📉 Go LOWER!"
-        return "Too Low", "📈 Go HIGHER!"
+    return "Too Low" , "📈 Go HIGHER!"
 
 
 def update_score(current_score: int, outcome: str, attempt_number: int):
